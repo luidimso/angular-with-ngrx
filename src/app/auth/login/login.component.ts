@@ -9,6 +9,7 @@ import {noop} from "rxjs";
 import {Router} from "@angular/router";
 import { AppState } from '../../reducers';
 import { login } from '../auth.actions';
+import { AuthActions } from '../actions-types';
 
 @Component({
   selector: 'login',
@@ -43,7 +44,7 @@ export class LoginComponent implements OnInit {
       console.log(user);
 
       //dispatch method store the value with a action indentification
-      this.store.dispatch(login({user: user}));
+      this.store.dispatch(AuthActions.login({user: user}));
       this.router.navigateByUrl('/courses');
     })).subscribe(noop, () => alert('Login failed'));
   }
