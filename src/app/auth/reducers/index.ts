@@ -23,6 +23,9 @@ export const initialAuthState: AuthState = {
 
 export const metaReducers: MetaReducer<AuthState>[] = isDevMode() ? [] : [];
 
+
+//reducer to show when and how the action was called
+//this method is called every time when action is dispatched and loads the new version of the state on storage
 export const authReducer = createReducer(initialAuthState, on(AuthActions.login, (state, action) => {
   return {
     user: action.user
