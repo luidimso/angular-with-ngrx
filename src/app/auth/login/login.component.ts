@@ -8,6 +8,7 @@ import {tap} from "rxjs/operators";
 import {noop} from "rxjs";
 import {Router} from "@angular/router";
 import { AppState } from '../../reducers';
+import { login } from '../auth.actions';
 
 @Component({
   selector: 'login',
@@ -40,7 +41,9 @@ export class LoginComponent implements OnInit {
 
     this.auth.login(formValue.email, formValue.password).pipe(tap(user => {
       console.log(user);
-      //this.store.dispatch();
+
+      //dispatch method store the value with a action indentification
+      this.store.dispatch(login({user: user}));
       this.router.navigateByUrl('/courses');
     })).subscribe(noop, () => alert('Login failed'));
   }
