@@ -22,7 +22,7 @@ import { AuthGuard } from './auth.guard';
         MatButtonModule,
         RouterModule.forChild([{path: '', component: LoginComponent}]),
         StoreModule.forFeature(fromAuth.authFeatureKey, authReducer),
-
+        EffectsModule.forFeature([])
     ],
 
     // StoreModule creates a key named "auth" (fromAuth.authFeatureKey) on ngrx storage
