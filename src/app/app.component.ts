@@ -3,6 +3,7 @@ import {select, Store} from "@ngrx/store";
 import {Observable} from "rxjs";
 import {map} from 'rxjs/operators';
 import {NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router} from '@angular/router';
+import { isLoggedIn, isLoggedOut } from './auth/login/auth.selectors';
 
 @Component({
   selector: 'app-root',
@@ -42,13 +43,10 @@ export class AppComponent implements OnInit {
         }
       });
 
-      this.isLoggedIn$ = this.store.pipe(map(state => {
-        return !!state["auth"].user;
-      }));
+      //this was used to access the data on store, and map method to return a boolean value
+      this.isLoggedIn$ = this.store.pipe(select(isLoggedIn));
 
-      this.isLoggedOut$ = this.store.pipe(map(state => {
-        return !state["auth"].user;
-      }));
+      this.isLoggedOut$ = this.store.pipe(select(isLoggedOut));
     }
 
     logout() {
