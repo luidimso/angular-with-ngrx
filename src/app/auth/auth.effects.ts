@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { AuthActions } from "./actions-types";
 import { tap } from "rxjs/operators";
+import { Router } from "@angular/router";
 
 //Effects is to do side effects after a action is dispatched
 //For exemple: save on local storage the login authentication after the login action be dispatched
@@ -15,7 +16,16 @@ export class AuthEffects {
         }));
     }, {dispatch: false});
 
+    logout$ = createEffect(() => {
+        return this.action$.pipe(ofType(AuthActions.logout), tap(action => {
+            console.log("Logout Side Effect");
+            localStorage.removeItem("user");
+            this.router.navigateByUrl("/login");
+        }));
+    }, {dispatch: false});
+
     constructor(
-        private action$: Actions
+        private action$: Actions,
+        private router: Router
     ) {}
 }
