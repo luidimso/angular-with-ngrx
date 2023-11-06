@@ -31,6 +31,8 @@ import { CoursesEffects } from './courses.effect';
 
 
 export const coursesRoutes: Routes = [
+// When entered on course home page "HomeController", it resolves by dispatching the loadAllCourses action
+
   {
     path: '',
     component: HomeComponent,
