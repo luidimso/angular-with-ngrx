@@ -17,6 +17,7 @@ export interface AuthState {
   user: User
 };
 
+// it is needed to inform how is the initial state of the data to store
 export const initialAuthState: AuthState = {
   user: undefined
 };
