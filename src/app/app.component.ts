@@ -53,6 +53,7 @@ export class AppComponent implements OnInit {
       });
 
       //this was used to access the data on store, and map method to return a boolean value
+      
       this.isLoggedIn$ = this.store.pipe(select(isLoggedIn));
 
       this.isLoggedOut$ = this.store.pipe(select(isLoggedOut));
