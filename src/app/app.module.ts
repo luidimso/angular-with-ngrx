@@ -59,7 +59,11 @@ const routes: Routes = [
       metaReducers
     }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    EffectsModule.forRoot([])
+    EffectsModule.forRoot([]),
+    StoreRouterConnectingModule.forRoot({
+      stateKey: "router",
+      routerState: RouterState.Minimal
+    })
   ],
   bootstrap: [AppComponent]
 })
