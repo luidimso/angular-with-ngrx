@@ -43,3 +43,8 @@ export const selectPromoCourses = createSelector(selectAllCourses, courses => {
         return course.promo == true;
     }).length;
 });
+
+
+export const areCoursesLoaded = createSelector(selectCoursesState, state => {
+    return state.allCoursesLoaded;
+});
