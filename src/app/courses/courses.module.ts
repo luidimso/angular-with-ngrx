@@ -25,6 +25,7 @@ import { EntityDataService, EntityDefinitionService, EntityMetadataMap} from '@n
 import {compareCourses, Course} from './model/course';
 
 import {compareLessons, Lesson} from './model/lesson';
+import { CourseEntityService } from './services/courses-entity.service';
 
 
 export const coursesRoutes: Routes = [
@@ -38,6 +39,10 @@ export const coursesRoutes: Routes = [
     component: CourseComponent
   }
 ];
+
+const entityMetadata: EntityMetadataMap = {
+  Course: {}
+};
 
 
 @NgModule({
@@ -73,13 +78,16 @@ export const coursesRoutes: Routes = [
     CourseComponent
   ],
   providers: [
-    CoursesHttpService
+    CoursesHttpService,
+    CourseEntityService
   ]
 })
 export class CoursesModule {
 
-  constructor() {
-
+  constructor(
+    private eds: EntityDefinitionService
+  ) {
+    eds.registerMetadataMap(entityMetadata);
   }
 
 
