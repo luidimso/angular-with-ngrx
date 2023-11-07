@@ -48,9 +48,13 @@ export const coursesRoutes: Routes = [
   }
 ];
 
+//optimistic* configurations say to entity service not wait till the backend database be updated to update the frontend, it makes the frontend be upodated on real time, removing the delay
 const entityMetadata: EntityMetadataMap = {
   Course: {
-    sortComparer: compareCourses
+    sortComparer: compareCourses,
+    entityDispatcherOptions: {
+      optimisticUpdate: true
+    }
   }
 };
 
