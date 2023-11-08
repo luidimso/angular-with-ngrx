@@ -24,6 +24,8 @@ export class CourseComponent implements OnInit {
 
   nextPage = 0;
 
+  loading$: Observable<boolean> = of(false);
+
   constructor(
     private coursesService: CourseEntityService,
     private lessonService: LessonEntityService,
@@ -35,19 +37,38 @@ export class CourseComponent implements OnInit {
 
     const courseUrl = this.route.snapshot.paramMap.get("courseUrl");
 
+    //entities$ property access and get the data in store
     this.course$ = this.coursesService.entities$.pipe(map(courses => {
       return courses.find(course => {
         return course.url == courseUrl;
       });
     }));
 
-    this.lessons$ = of([]);
+    //withLatestFrom combine two observables, in that case courses$ (the last) and lessons$ (with will get the value here, while courses$ already have the value)
+    this.lessons$ = this.lessonService.entities$.pipe(withLatestFrom(this.course$), tap(([lessons, course]) => {
+      if (this.nextPage == 0) {
+        this.loadLessonsPage(course)
+      }
+    }), map(([lessons, course]) => {
+      return lessons.filter(lesson => {
+        return lesson.courseId == course.id;
+      })
+    }));
 
+    setTimeout(() => {
+      this.loading$ = this.lessonService.loading$;
+    }, 500);
   }
 
 
   loadLessonsPage(course: Course) {
+    this.lessonService.getWithQuery({
+      "courseId": course.id.toString(),
+      "pageNumber": this.nextPage.toString(),
+      "pageSize": 3
+    });
 
+    this.nextPage += 1;
   }
 
 }
