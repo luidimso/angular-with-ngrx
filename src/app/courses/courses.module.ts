@@ -28,6 +28,7 @@ import {compareLessons, Lesson} from './model/lesson';
 import { CourseEntityService } from './services/courses-entity.service';
 import { CoursesResolver } from './services/courses.resolver';
 import { CourseDataService } from './services/courses-data.service';
+import { LessonEntityService } from './services/lessons-entity.service';
 
 
 export const coursesRoutes: Routes = [
@@ -97,6 +98,7 @@ const entityMetadata: EntityMetadataMap = {
   providers: [
     CoursesHttpService,
     CourseEntityService,
+    LessonEntityService,
     CoursesResolver,
     CourseDataService
   ]
